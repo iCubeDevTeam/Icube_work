@@ -4,65 +4,65 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Server.Migrations
 {
-    public partial class Tokenmodel : Migration
+    public partial class Initial_DB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "factorys",
+                name: "Factorys",
                 columns: table => new
                 {
-                    factory_id = table.Column<int>(type: "integer", nullable: false)
+                    FactoryId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    factoryname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    Factoryname = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_factorys", x => x.factory_id);
+                    table.PrimaryKey("PK_Factorys", x => x.FactoryId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "roles",
+                name: "Roles",
                 columns: table => new
                 {
-                    role_id = table.Column<int>(type: "integer", nullable: false)
+                    RoleId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    rolename = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    tag_service = table.Column<bool>(type: "boolean", nullable: true),
-                    interface_service = table.Column<bool>(type: "boolean", nullable: true),
-                    integration_service = table.Column<bool>(type: "boolean", nullable: true)
+                    Rolename = table.Column<string>(type: "text", nullable: true),
+                    TagService = table.Column<bool>(type: "boolean", nullable: true),
+                    InterfaceService = table.Column<bool>(type: "boolean", nullable: true),
+                    IntegrationService = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_roles", x => x.role_id);
+                    table.PrimaryKey("PK_Roles", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "Users",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    username = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    passwordhash = table.Column<byte[]>(type: "bytea", nullable: false),
-                    passwordsalt = table.Column<byte[]>(type: "bytea", nullable: false),
-                    role_id = table.Column<int>(type: "integer", nullable: true),
-                    factory_id = table.Column<int>(type: "integer", nullable: true)
+                    Username = table.Column<string>(type: "text", nullable: true),
+                    Passwordhash = table.Column<byte[]>(type: "bytea", nullable: true),
+                    Passwordsalt = table.Column<byte[]>(type: "bytea", nullable: true),
+                    RoleId = table.Column<int>(type: "integer", nullable: true),
+                    FactoryId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "factorys_fk",
-                        column: x => x.factory_id,
-                        principalTable: "factorys",
-                        principalColumn: "factory_id",
+                        name: "FK_Users_Factorys_FactoryId",
+                        column: x => x.FactoryId,
+                        principalTable: "Factorys",
+                        principalColumn: "FactoryId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "users_fk",
-                        column: x => x.role_id,
-                        principalTable: "roles",
-                        principalColumn: "role_id",
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "RoleId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -84,10 +84,10 @@ namespace Server.Migrations
                 {
                     table.PrimaryKey("PK_RefreshTokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RefreshTokens_users_UserId",
+                        name: "FK_RefreshTokens_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "users",
-                        principalColumn: "id",
+                        principalTable: "Users",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -97,14 +97,14 @@ namespace Server.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_users_factory_id",
-                table: "users",
-                column: "factory_id");
+                name: "IX_Users_FactoryId",
+                table: "Users",
+                column: "FactoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_users_role_id",
-                table: "users",
-                column: "role_id");
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -113,13 +113,13 @@ namespace Server.Migrations
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "factorys");
+                name: "Factorys");
 
             migrationBuilder.DropTable(
-                name: "roles");
+                name: "Roles");
         }
     }
 }

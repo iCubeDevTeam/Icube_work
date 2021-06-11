@@ -1,0 +1,24 @@
+[
+    {
+        "RoleId": 1,
+        "Rolename":"Administrator",
+        "TagService": true,
+        "InterfaceService": true,
+        "IntegrationService":true
+    },
+    {
+        "RoleId": 2,
+        "Rolename":"Operator",
+        "TagService": false,
+        "InterfaceService": true,
+        "IntegrationService":false
+    },
+    {
+        "RoleId": 3,
+        "Rolename":"Guest",
+        "TagService": false,
+        "InterfaceService": false,
+        "IntegrationService":false
+    }
+]
+

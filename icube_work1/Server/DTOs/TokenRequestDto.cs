@@ -6,7 +6,7 @@ namespace Server.DTOs
     {
         [Required]
         public string GrantType { get; set; }
-        public string ClientId { get; set; }
+        // public string ClientId { get; set; }
         public string Username { get; set; }
         public int FactoryId { get; set; }
         public string RefreshToken { get; set; }

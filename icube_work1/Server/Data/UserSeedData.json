@@ -1,0 +1,17 @@
+[
+    {
+        "Username": "Admin",
+        "RoleId": 1,
+        "FactoryId": 1
+    },
+    {
+        "Username": "Operator",
+        "RoleId": 2,
+        "FactoryId": 2
+    },
+    {
+        "Username": "Guest",
+        "RoleId": 3,
+        "FactoryId": 1
+    }
+]

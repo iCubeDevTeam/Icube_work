@@ -1,0 +1,10 @@
+[
+    {
+        "FactoryId":1,
+        "Factoryname": "icube"
+    },
+    {
+        "FactoryId":2,
+        "Factoryname": "yokogawa"
+    }
+]

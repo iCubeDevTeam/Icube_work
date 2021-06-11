@@ -15,7 +15,6 @@ namespace Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:Collation", "en_US.utf8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -25,18 +24,14 @@ namespace Server.Migrations
                     b.Property<int>("FactoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("factory_id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Factoryname")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("factoryname");
+                        .HasColumnType("text");
 
                     b.HasKey("FactoryId");
 
-                    b.ToTable("factorys");
+                    b.ToTable("Factorys");
                 });
 
             modelBuilder.Entity("Server.Models.RefreshToken", b =>
@@ -81,30 +76,23 @@ namespace Server.Migrations
                     b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("role_id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<bool?>("IntegrationService")
-                        .HasColumnType("boolean")
-                        .HasColumnName("integration_service");
+                        .HasColumnType("boolean");
 
                     b.Property<bool?>("InterfaceService")
-                        .HasColumnType("boolean")
-                        .HasColumnName("interface_service");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Rolename")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("rolename");
+                        .HasColumnType("text");
 
                     b.Property<bool?>("TagService")
-                        .HasColumnType("boolean")
-                        .HasColumnName("tag_service");
+                        .HasColumnType("boolean");
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("roles");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Server.Models.User", b =>
@@ -112,32 +100,22 @@ namespace Server.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int?>("FactoryId")
-                        .HasColumnType("integer")
-                        .HasColumnName("factory_id");
+                        .HasColumnType("integer");
 
                     b.Property<byte[]>("Passwordhash")
-                        .IsRequired()
-                        .HasColumnType("bytea")
-                        .HasColumnName("passwordhash");
+                        .HasColumnType("bytea");
 
                     b.Property<byte[]>("Passwordsalt")
-                        .IsRequired()
-                        .HasColumnType("bytea")
-                        .HasColumnName("passwordsalt");
+                        .HasColumnType("bytea");
 
                     b.Property<int?>("RoleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("role_id");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("username");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -145,7 +123,7 @@ namespace Server.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("users");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Server.Models.RefreshToken", b =>
@@ -163,13 +141,11 @@ namespace Server.Migrations
                 {
                     b.HasOne("Server.Models.Factory", "Factory")
                         .WithMany("Users")
-                        .HasForeignKey("FactoryId")
-                        .HasConstraintName("factorys_fk");
+                        .HasForeignKey("FactoryId");
 
                     b.HasOne("Server.Models.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .HasConstraintName("users_fk");
+                        .HasForeignKey("RoleId");
 
                     b.Navigation("Factory");
 
