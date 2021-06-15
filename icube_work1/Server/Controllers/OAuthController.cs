@@ -14,6 +14,7 @@ namespace Server.Controllers
 {
     public class OAuthController: Controller
     {
+        // ย้าย business logic ใน controller ต่างๆ ไปสร้าง repository
         [HttpGet]
         public IActionResult Authorize(
             string response_type,
