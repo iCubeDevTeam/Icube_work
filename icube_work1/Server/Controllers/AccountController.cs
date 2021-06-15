@@ -24,7 +24,9 @@ namespace Server.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-
+            // ย้าย business logic ทั้งหมดไปเขียนไว้ใน AccountRepository
+            // ใช้หลักการ DI -> IAccountRepository accountRepository -> _accountRepository = accountRepository (ใน Constructor)
+            
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
             using var hmac = new HMACSHA512();
@@ -54,6 +56,8 @@ namespace Server.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
+            // ย้าย business logic ทั้งหมดไปเขียนไว้ใน AccountRepository
+            
             var user = await _context.Users.SingleOrDefaultAsync(x => (x.Username == loginDto.Username.ToLower())&&(x.Factory.Factoryname == loginDto.Factoryname.ToLower()));
 
             if (user == null) return Unauthorized("Invalid username");
@@ -77,6 +81,7 @@ namespace Server.Controllers
 
         private async Task<bool> UserExists(string username)
         {
+            // ย้าย business logic ทั้งหมดไปเขียนไว้ใน AccountRepository
             return await _context.Users.AnyAsync(x => x.Username == username.ToLower());
         }
 
