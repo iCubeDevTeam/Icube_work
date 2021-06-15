@@ -24,7 +24,9 @@ namespace Server.Controllers
             _context = context;
             _clientId = config["ClientId"];
         }
-
+           
+        // ย้าย business logic ใน controller ต่างๆ ไปสร้าง repository  
+        
         [HttpPost("[action]")]
         public async Task<IActionResult> Auth(TokenRequestDto request)
         {
